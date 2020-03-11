@@ -14,6 +14,7 @@ const CardMedia = ({ data, cardSize, autoPlay }) => {
           style={{ WebkitFilter: 'blur(10px)', filter: 'blur(10px)' }}
         >
           <img
+            alt=""
             style={{ display: `none` }}
             src={data.image && data.image[0]}
             onError={(e: any) => {
@@ -34,7 +35,7 @@ const CardMedia = ({ data, cardSize, autoPlay }) => {
         >
           <Video
             muted
-            onCanPlayThrough={e => {
+            onCanPlayThrough={(e) => {
               let video = e.target
               setTimeout(() => {
                 video.pause()

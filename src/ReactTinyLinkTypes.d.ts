@@ -8,14 +8,14 @@ export declare enum ReactTinyLinkType {
     TYPE_INSTAGRAM = "TYPE_INSTAGTAM"
 }
 export declare type CardSizeType = 'small' | 'large';
-export interface IReactTinyLinkProps {
+export interface ReactTinyLinkProps {
     cardSize?: CardSizeType;
     maxLine: number;
     minLine: number;
     url: string;
     header?: string;
     onError?: (error: Error) => void;
-    onSuccess?: (response: IReactTinyLinkData) => void;
+    onSuccess?: (response: ReactTinyLinkData) => void;
     description?: string;
     showGraphic?: boolean;
     autoPlay?: boolean;
@@ -31,7 +31,7 @@ export interface IReactTinyLinkProps {
     }>;
     defaultMedia?: string;
 }
-export interface IReactTinyLinkData {
+export interface ReactTinyLinkData {
     description: string;
     image: string[];
     title: string;

@@ -1,5 +1,7 @@
 import { ReactTinyLinkType } from '../../ReactTinyLinkTypes'
-import { getTitleOfDoc, getAttrOfDocElement, getInstagramVideo, isEmpty } from '../utils'
+import {
+  getTitleOfDoc, getAttrOfDocElement, getInstagramVideo, isEmpty
+} from '../utils'
 
 export default async (url: string, htmlDoc, data, defaultMedia) => {
   let baseUrl = getAttrOfDocElement(htmlDoc, 'base', 'href')
@@ -17,7 +19,7 @@ export default async (url: string, htmlDoc, data, defaultMedia) => {
         getInstagramVideo(data),
         getAttrOfDocElement(htmlDoc, 'meta[property="og:video"]', 'content'),
         defaultMedia,
-      ].filter(i => !isEmpty(i))
+      ].filter((i) => !isEmpty(i))
       : [],
     image: data.includes('video_url')
       ? []
@@ -35,7 +37,7 @@ export default async (url: string, htmlDoc, data, defaultMedia) => {
         getAttrOfDocElement(htmlDoc, 'meta[name="twitter:image"]', 'content'),
         getAttrOfDocElement(htmlDoc, 'meta[itemprop="image"]', 'content'),
         defaultMedia,
-      ].filter(i => !isEmpty(i)),
+      ].filter((i) => !isEmpty(i)),
     type: data.includes('video_url') ? ReactTinyLinkType.TYPE_VIDEO : ReactTinyLinkType.TYPE_IMAGE, // MIME Type
   }
 }

@@ -14,9 +14,9 @@ export const media = {
   `,
 };
 
-export const getHostname = href => {
+export const getHostname = (href) => {
   const { hostname } = new URL(href);
   return hostname.replace(REGEX_STRIP_WWW, '');
 };
 
-export const isLarge = cardSize => cardSize === 'large';
+export const isLarge = (cardSize) => cardSize === 'large';

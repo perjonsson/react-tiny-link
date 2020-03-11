@@ -14,28 +14,28 @@ export default async (url, htmlDoc, defaultMedia) => {
   try {
     const { title } = JSON.parse(
       `{${
-      htmlDoc
-        .querySelector('html')
-        .innerHTML.toString()
-        .match(titleRegex)[0]
+        htmlDoc
+          .querySelector('html')
+          .innerHTML.toString()
+          .match(titleRegex)[0]
       }}`,
     )
     return {
-      title: title,
-      url: url,
+      title,
+      url,
       description: url,
       type: ReactTinyLinkType.TYPE_YOUTUBE,
       video: [],
-      image: image.filter(i => !isEmpty(i)),
+      image: image.filter((i) => !isEmpty(i)),
     }
   } catch (error) {
     return {
       title: htmlDoc.querySelector('title').innerText,
-      url: url,
+      url,
       description: url,
       type: ReactTinyLinkType.TYPE_YOUTUBE,
       video: [],
-      image: !defaultMedia ? image.filter(i => !isEmpty(i)) : [...image, defaultMedia].filter(i => !isEmpty(i)),
+      image: !defaultMedia ? image.filter((i) => !isEmpty(i)) : [...image, defaultMedia].filter((i) => !isEmpty(i)),
     }
   }
 }

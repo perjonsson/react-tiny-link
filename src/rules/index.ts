@@ -1,4 +1,6 @@
-import { isVideo, isAudio, isImage, isYoutubeUrl, isAmazonUrl, isEmpty, isInstagramUrl } from './utils'
+import {
+  isVideo, isAudio, isImage, isYoutubeUrl, isAmazonUrl, isEmpty, isInstagramUrl
+} from './utils'
 import ScrapVideo from './Video/ScrapVideo'
 import ScrapAudio from './Audio/ScrapAudio'
 import ScrapImage from './Image/ScrapImage'
@@ -14,19 +16,19 @@ export default async (url: string, httpClient, defaultMedia: string[]) => {
     const data = await response.text()
     const htmlDoc = new DOMParser().parseFromString(data, 'text/html')
     if (isVideo(mimeType)) {
-      return await ScrapVideo(url, defaultMedia)
-    } else if (isAudio(mimeType)) {
-      return await ScrapAudio(url, defaultMedia)
-    } else if (isImage(mimeType)) {
-      return await ScrapImage(url, defaultMedia)
-    } else if (isInstagramUrl(url)) {
-      return await ScrapInstagram(url, htmlDoc, data, defaultMedia)
-    } else if (isYoutubeUrl(url)) {
-      return await ScrapYoutube(url, htmlDoc, defaultMedia)
-    } else if (isAmazonUrl(url)) {
-      return await ScrapAmazon(url, htmlDoc, defaultMedia)
-    } else {
-      return await ScrapDefault(url, htmlDoc, defaultMedia)
+      return ScrapVideo(url, defaultMedia)
+    } if (isAudio(mimeType)) {
+      return ScrapAudio(url, defaultMedia)
+    } if (isImage(mimeType)) {
+      return ScrapImage(url, defaultMedia)
+    } if (isInstagramUrl(url)) {
+      return ScrapInstagram(url, htmlDoc, data, defaultMedia)
+    } if (isYoutubeUrl(url)) {
+      return ScrapYoutube(url, htmlDoc, defaultMedia)
+    } if (isAmazonUrl(url)) {
+      return ScrapAmazon(url, htmlDoc, defaultMedia)
     }
+    return ScrapDefault(url, htmlDoc, defaultMedia)
   }
+  return null
 }

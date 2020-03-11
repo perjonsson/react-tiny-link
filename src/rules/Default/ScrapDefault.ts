@@ -1,5 +1,7 @@
 import { ReactTinyLinkType } from '../../ReactTinyLinkTypes'
-import { isEmpty, getTitleOfDoc, getAttrOfDocElement, fixRelativeUrls } from '../utils'
+import {
+  isEmpty, getTitleOfDoc, getAttrOfDocElement, fixRelativeUrls
+} from '../utils'
 
 export default async (url, htmlDoc, defaultMedia) => {
   let baseUrl = getAttrOfDocElement(htmlDoc, 'base', 'href')
@@ -21,8 +23,8 @@ export default async (url, htmlDoc, defaultMedia) => {
     getAttrOfDocElement(htmlDoc, 'meta[name="twitter:image"]', 'content'),
     getAttrOfDocElement(htmlDoc, 'meta[itemprop="image"]', 'content'),
   ]
-    .filter(i => !isEmpty(i))
-    .map(i => fixRelativeUrls(baseUrl, i))
+    .filter((i) => !isEmpty(i))
+    .map((i) => fixRelativeUrls(baseUrl, i))
 
   return {
     title: getTitleOfDoc(htmlDoc),
@@ -31,8 +33,8 @@ export default async (url, htmlDoc, defaultMedia) => {
     description: getAttrOfDocElement(htmlDoc, "meta[name='description']", 'content'),
     video: [],
     image: !defaultMedia
-      ? image.filter(i => !isEmpty(i)).map(i => fixRelativeUrls(baseUrl, i))
-      : [...image, defaultMedia].filter(i => !isEmpty(i)),
+      ? image.filter((i) => !isEmpty(i)).map((i) => fixRelativeUrls(baseUrl, i))
+      : [...image, defaultMedia].filter((i) => !isEmpty(i)),
     type: ReactTinyLinkType.TYPE_DEFAULT, // MIME Type
   }
 }

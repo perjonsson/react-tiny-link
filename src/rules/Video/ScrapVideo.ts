@@ -6,8 +6,8 @@ export default async (url: string, defaultMedia: string[]) => {
     title: url.substring(url.lastIndexOf('/') + 1),
     description: url,
     image: [],
-    video: [url, defaultMedia].filter(i => !isEmpty(i)),
-    url: url,
+    video: [url, defaultMedia].filter((i) => !isEmpty(i)),
+    url,
     type: ReactTinyLinkType.TYPE_VIDEO,
   }
 }

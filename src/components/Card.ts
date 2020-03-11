@@ -42,7 +42,7 @@ const smallDescriptionStyle = css`
   p {
     -webkit-box-orient: vertical;
     display: -webkit-box;
-    -webkit-line-clamp: ${({ maxLine }) => (maxLine ? maxLine : 2)};
+    -webkit-line-clamp: ${({ maxLine }) => (maxLine || 2)};
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
@@ -50,7 +50,7 @@ const smallDescriptionStyle = css`
   ${media.mobile`
     > p {
       
-  -webkit-line-clamp: ${({ minLine }) => (minLine ? minLine : 1)};
+  -webkit-line-clamp: ${({ minLine }) => (minLine || 1)};
  
     }
   `};
@@ -60,14 +60,14 @@ const largeDescriptionStyle = css`
   p {
     -webkit-box-orient: vertical;
     display: -webkit-box;
-    -webkit-line-clamp: ${({ maxLine }) => (maxLine ? maxLine : 2)};
+    -webkit-line-clamp: ${({ maxLine }) => (maxLine || 2)};
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
   }
   ${media.mobile`
     > p {
-      -webkit-line-clamp: ${({ minLine }) => (minLine ? minLine : 1)};
+      -webkit-line-clamp: ${({ minLine }) => (minLine || 1)};
     }
   `};
 `
@@ -76,12 +76,11 @@ export const Media = styled('div')`
     display: block;
     height: auto;
     position: relative;
-    background: ${({ src, placeholderBg, type }) =>
-      src
-        ? `url(${src}) center center / ${
-            type === ReactTinyLinkType.TYPE_AUDIO ? `contain` : `cover`
-          } no-repeat rgb(225, 232, 237)`
-        : placeholderBg};
+    background: ${({ src, placeholderBg, type }) => src
+    ? `url(${src}) center center / ${
+      type === ReactTinyLinkType.TYPE_AUDIO ? `contain` : `cover`
+    } no-repeat rgb(225, 232, 237)`
+    : placeholderBg};
     
     flex: ${({ cardSize }) => (isLarge(cardSize) ? '1 1 0%;' : '0 0 125px;')}
     overflow: hidden;
@@ -150,7 +149,7 @@ export const Footer = styled('footer')`
 `
 
 export const Card = styled('a')`
-  max-width: ${({ width }) => (width ? width : `100vw`)};
+  max-width: ${({ width }) => (width || `100vw`)};
   background-color: rgb(255, 255, 255);
   color: rgb(24, 25, 25);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

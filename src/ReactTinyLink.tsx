@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import * as React from 'react'
-import { Card, ContentWrapper, Header, Content, Footer, Description } from './components/Card'
+import {
+  Card, ContentWrapper, Header, Content, Footer, Description
+} from './components/Card'
 import { getHostname } from './utils'
 import ScraperWraper from './rules'
-import { ReactTinyLinkType, IReactTinyLinkProps, IReactTinyLinkData } from './ReactTinyLinkTypes'
+import { ReactTinyLinkType, ReactTinyLinkProps, ReactTinyLinkData } from './ReactTinyLinkTypes'
 import CardMedia from './components/CardMedia'
 
 const useEffectAsync = (effect: () => void, input) => {
   React.useEffect(() => {
     effect()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, input)
 }
 
@@ -15,10 +19,10 @@ const fetchUrl = (
   url: string,
   proxyUrl: string,
   defaultMedia: string,
-  setData: (data: IReactTinyLinkData) => void,
+  setData: (data: ReactTinyLinkData) => void,
   setLoading: (loading: boolean) => void,
   onError: (error: Error) => void,
-  onSuccess: (response: IReactTinyLinkData) => void,
+  onSuccess: (response: ReactTinyLinkData) => void,
 ) => {
   setLoading(true)
 
@@ -29,7 +33,7 @@ const fetchUrl = (
   })
 
   ScraperWraper(url, client, defaultMedia ? [defaultMedia] : [])
-    .then((data: IReactTinyLinkData) => {
+    .then((data: ReactTinyLinkData) => {
       setData(data)
       onSuccess(data)
       setLoading(false)
@@ -40,7 +44,7 @@ const fetchUrl = (
         title: url.substring(url.lastIndexOf('/') + 1),
         description: url.substring(url.lastIndexOf('/') + 1),
         image: defaultMedia ? [defaultMedia] : [],
-        url: url,
+        url,
         video: defaultMedia ? [defaultMedia] : [],
         type: ReactTinyLinkType.TYPE_DEFAULT,
       })
@@ -48,7 +52,7 @@ const fetchUrl = (
     })
 }
 export const ScrapperWraper = ScraperWraper
-export const ReactTinyLink: React.FC<IReactTinyLinkProps> = ({
+export const ReactTinyLink: React.FC<ReactTinyLinkProps> = ({
   cardSize = 'small',
   maxLine = 2,
   minLine = 1,
@@ -62,7 +66,7 @@ export const ReactTinyLink: React.FC<IReactTinyLinkProps> = ({
   defaultMedia = '',
   onError = () => { },
   onSuccess = () => { },
-}: IReactTinyLinkProps) => {
+}: ReactTinyLinkProps) => {
   const [data, setData] = React.useState({
     title: null,
     description: null,
@@ -89,12 +93,12 @@ export const ReactTinyLink: React.FC<IReactTinyLinkProps> = ({
               minLine={minLine}
               className="react_tinylink_card_content_header_description"
             >
-              {header ? header : data.title ? data.title : url}
+              {header || (data.title ? data.title : url)}
             </Description>
           </Header>
           <Content maxLine={maxLine} minLine={minLine} className="react_tinylink_card_content" cardSize={cardSize}>
             <Description loading={loading} loadingWidth={1} className="react_tinylink_card_content_description">
-              {description ? description : data.description ? data.description : url}
+              {description || (data.description ? data.description : url)}
             </Description>
           </Content>
           <Footer className="react_tinylink_footer">

@@ -1,32 +1,33 @@
+/* eslint-disable no-useless-escape */
 const REGEX_AMAZON_URL = /https?:\/\/(.*amazon\..*\/.*|.*amzn\..*\/.*|.*a\.co\/.*)/i
-export const isAmazonUrl = url => REGEX_AMAZON_URL.test(url)
+export const isAmazonUrl = (url) => REGEX_AMAZON_URL.test(url)
 
 const REGEX_YOUTUBE = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi
-export const isYoutubeUrl = url => !!url.toString().match(REGEX_YOUTUBE)
+export const isYoutubeUrl = (url) => !!url.toString().match(REGEX_YOUTUBE)
 
 const REGEX_INSTAGRAM = /(https?:\/\/www\.)?instagram\.com(\/p\/\w+\/?)/gi
-export const isInstagramUrl = url => !!url.toString().match(REGEX_INSTAGRAM)
+export const isInstagramUrl = (url) => !!url.toString().match(REGEX_INSTAGRAM)
 
 export const isEmpty = (value: any) => {
-  let isEmptyObject = function(a) {
+  let isEmptyObject = function (a) {
     if (typeof a.length === 'undefined') {
       // it's an Object, not an Array
-      let hasNonempty = Object.keys(a).some(function nonEmpty(element) {
+      let hasNonempty = Object.keys(a).some((element) => {
         return !isEmpty(a[element])
       })
       return hasNonempty ? false : isEmptyObject(Object.keys(a))
     }
 
-    return !a.some(function nonEmpty(element) {
+    return !a.some((element) => {
       // check if array is really not empty as JS thinks
       return !isEmpty(element) // at least one element should be non-empty
     })
   }
   return (
-    value == false ||
-    typeof value === 'undefined' ||
-    value == null ||
-    (typeof value === 'object' && isEmptyObject(value))
+    value === false
+    || typeof value === 'undefined'
+    || value == null
+    || (typeof value === 'object' && isEmptyObject(value))
   )
 }
 
@@ -56,9 +57,8 @@ export const getYoutTubeVideoId = (url: string) => {
 
   if (parsed && parsed[3]) {
     return parsed[3]
-  } else {
-    return null
   }
+  return null
 }
 
 export const getInstagramVideo = (htmlDoc: any) => {
